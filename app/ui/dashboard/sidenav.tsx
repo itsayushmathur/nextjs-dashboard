@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import AcmeLogo from '@/app/ui/acme-logo';
@@ -5,25 +7,69 @@ import { PowerIcon } from '@heroicons/react/24/outline';
 
 export default function SideNav() {
   return (
-    <div className="flex h-full flex-col px-3 py-4 md:px-2">
+    <aside
+      className="relative flex h-full w-full flex-col overflow-hidden
+                 border-r border-slate-200/70
+                 bg-white/70 backdrop-blur-xl
+                 px-3 py-4 md:px-2"
+    >
+      {/* Ambient pastel glow */}
+      <div
+        className="pointer-events-none absolute -top-24 -left-24 h-64 w-64
+                   rounded-full bg-blue-200/50 blur-3xl animate-floatSlow"
+      />
+
+      {/* Logo */}
       <Link
-        className="mb-2 flex h-20 items-end justify-start rounded-md bg-blue-600 p-4 md:h-40"
         href="/"
+        className="group relative mb-6 flex h-20 items-center rounded-xl
+                   bg-gradient-to-br from-blue-500 to-indigo-500
+                   px-4 shadow-sm transition-all
+                   hover:shadow-md md:h-28"
       >
-        <div className="w-32 text-white md:w-40">
+        {/* subtle hover sheen */}
+        <div
+          className="absolute inset-0 rounded-xl bg-white/40 opacity-0
+                     transition-opacity group-hover:opacity-100"
+        />
+
+        <div className="relative w-32 text-white md:w-40">
           <AcmeLogo />
         </div>
       </Link>
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-        <NavLinks />
-        <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-        <form>
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
-            <PowerIcon className="w-6" />
-            <div className="hidden md:block">Sign Out</div>
-          </button>
-        </form>
+
+      {/* Navigation */}
+      <div className="flex grow flex-col justify-between gap-3">
+        <nav className="flex flex-col gap-1">
+          <NavLinks />
+        </nav>
+
+        {/* Sign out */}
+        <button
+          type="button"
+          className="group relative flex h-12 items-center justify-center gap-3
+                     rounded-xl
+                     bg-red-50 px-3 text-sm font-medium text-red-600
+                     transition-all duration-300
+                     hover:bg-red-100 hover:text-red-700
+                     active:scale-[0.98]
+                     focus-visible:outline-none focus-visible:ring-2
+                     focus-visible:ring-red-400 md:justify-start"
+        >
+          <PowerIcon
+            className="h-5 w-5 transition-transform duration-200
+                       group-hover:scale-110"
+          />
+          <span className="hidden md:block">Sign Out</span>
+
+          {/* hover glow */}
+          <span
+            className="pointer-events-none absolute inset-0 rounded-xl
+                       bg-red-300/20 opacity-0 blur-md
+                       transition-opacity group-hover:opacity-100"
+          />
+        </button>
       </div>
-    </div>
+    </aside>
   );
 }
