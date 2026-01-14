@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("Logging in...");
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -13,8 +14,13 @@ export default function Page() {
 
     const formData = new FormData(e.target);
     setLoading(true);
-    // Simulate async login
-    await new Promise((res) => setTimeout(res, 2000));
+    setLoadingText("Logging in...");
+
+    // simulate login
+    await new Promise((res) => setTimeout(res, 500));
+    setLoadingText("Loading dashboard...");
+
+    await new Promise((res) => setTimeout(res, 500));
 
     console.log({
       email: formData.get("email"),
@@ -25,15 +31,8 @@ export default function Page() {
   };
 
   return (
-    <main className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 px-4 py-8">
-      {/* Background blobs */}
-      {/* <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-blue-500/30 blur-3xl animate-floatSlow" />
-      <div className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-purple-500/30 blur-3xl animate-floatSlow delay-500" /> */}
-
-      {/* Card */}
-      <div
-      // className="relative w-full max-w-md rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl animate-fadeInUp"
-      >
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 px-4">
+      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl">
         <h1 className="text-3xl font-semibold text-white text-center mb-2">
           Welcome Back
         </h1>
@@ -51,39 +50,27 @@ export default function Page() {
               disabled={loading}
               placeholder=" "
               className="
-                        peer w-full h-12 rounded-xl
-                        bg-white/10 px-4 pt-4 text-white
-                        text-[15px] font-semibold
-                        border border-white/15
-                        outline-none transition-all
-
-                        focus:bg-white/15
-                        focus:border-blue-400
-                        focus:ring-2 focus:ring-blue-500/40
-
-                        disabled:opacity-60 disabled:cursor-not-allowed
-                      "
+                peer w-full h-12 rounded-xl
+                bg-white/10 px-4 pt-4 text-white
+                border border-white/15 outline-none
+                focus:border-blue-400 focus:ring-2 focus:ring-blue-500/40
+              "
             />
 
             <label
               className="
-      absolute left-3 top-3
-      z-10 px-1
-      text-sm text-gray-300
-      bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900
-      pointer-events-none
-      transition-all duration-200
+                absolute left-4 -top-2
+                px-1 text-xs text-blue-300
+                bg-[#1e0b3a]
+                transition-all
 
-      peer-placeholder-shown:top-3.5
-      peer-placeholder-shown:text-sm
+                peer-placeholder-shown:top-3.5
+                peer-placeholder-shown:text-sm
+                peer-placeholder-shown:text-gray-300
 
-      peer-focus:-top-2
-      peer-focus:text-xs
-      peer-focus:text-blue-300
-
-      peer-valid:-top-2
-      peer-valid:text-xs
-    "
+                peer-focus:-top-2 peer-focus:text-xs
+                peer-valid:-top-2 peer-valid:text-xs
+              "
             >
               Email address
             </label>
@@ -98,39 +85,27 @@ export default function Page() {
               disabled={loading}
               placeholder=" "
               className="
-      peer w-full h-12 rounded-xl
-      bg-white/10 px-4 pt-4 text-white
-      text-[15px] font-semibold
-      border border-white/15
-      outline-none transition-all
-
-      focus:bg-white/15
-      focus:border-purple-400
-      focus:ring-2 focus:ring-purple-500/40
-
-      disabled:opacity-60 disabled:cursor-not-allowed
-    "
+                peer w-full h-12 rounded-xl
+                bg-white/10 px-4 pt-4 text-white
+                border border-white/15 outline-none
+                focus:border-purple-400 focus:ring-2 focus:ring-purple-500/40
+              "
             />
 
             <label
               className="
-      absolute left-3 top-3
-      z-10 px-1
-      text-sm text-gray-300
-      bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900
-      pointer-events-none
-      transition-all duration-200
+                absolute left-4 -top-2
+                px-1 text-xs text-purple-300
+                bg-[#1e0b3a]
+                transition-all
 
-      peer-placeholder-shown:top-3.5
-      peer-placeholder-shown:text-sm
+                peer-placeholder-shown:top-3.5
+                peer-placeholder-shown:text-sm
+                peer-placeholder-shown:text-gray-300
 
-      peer-focus:-top-2
-      peer-focus:text-xs
-      peer-focus:text-purple-300
-
-      peer-valid:-top-2
-      peer-valid:text-xs
-    "
+                peer-focus:-top-2 peer-focus:text-xs
+                peer-valid:-top-2 peer-valid:text-xs
+              "
             >
               Password
             </label>
@@ -140,19 +115,17 @@ export default function Page() {
           <button
             type="submit"
             disabled={loading}
-            aria-busy={loading}
-            className="relative w-full h-12 rounded-lg
+            className="w-full h-12 rounded-lg
                        bg-gradient-to-r from-blue-500 to-purple-600
                        text-white font-medium
-                       transition-all duration-300
-                       hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30
-                       active:scale-[0.97]
-                       disabled:cursor-not-allowed disabled:opacity-70"
+                       transition-all
+                       hover:scale-[1.02]
+                       disabled:opacity-70"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="h-5 w-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                Logging in…
+                {loadingText}
               </span>
             ) : (
               "Log In"
