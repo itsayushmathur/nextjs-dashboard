@@ -2,17 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import type { FormEvent } from "react";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Logging in...");
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
 
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
+
     setLoading(true);
     setLoadingText("Logging in...");
 
